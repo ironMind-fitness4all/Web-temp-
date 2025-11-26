@@ -26,3 +26,22 @@ cards.forEach(card => {
     card.style.boxShadow = "0 0 20px rgba(0,0,0,0.4)";
   });
 });
+// Optional: tiny click animation + log for analytics
+document.addEventListener('DOMContentLoaded', () => {
+  const viewBtn = document.getElementById('viewTemplatesBtn');
+  if (viewBtn) {
+    viewBtn.addEventListener('click', (e) => {
+      // small visual feedback
+      viewBtn.style.transform = 'scale(0.98)';
+      setTimeout(() => viewBtn.style.transform = '', 140);
+
+      // optional: track clicks locally (increase counter in localStorage)
+      try {
+        const key = 'templates_view_count';
+        const current = Number(localStorage.getItem(key) || 0);
+        localStorage.setItem(key, current + 1);
+      } catch (err) { /* ignore storage errors */ }
+      // allow normal navigation to templates.html
+    });
+  }
+});
